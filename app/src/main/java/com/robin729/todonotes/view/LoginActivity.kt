@@ -1,4 +1,4 @@
-package com.robin729.todonotes
+package com.robin729.todonotes.view
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.robin729.todonotes.utils.AppConstants
+import com.robin729.todonotes.R
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {

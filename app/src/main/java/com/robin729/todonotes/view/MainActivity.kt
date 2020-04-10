@@ -1,8 +1,8 @@
-package com.robin729.todonotes
+package com.robin729.todonotes.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import com.robin729.todonotes.R
 
 class MainActivity : AppCompatActivity() {
 

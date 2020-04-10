@@ -1,10 +1,12 @@
-package com.robin729.todonotes
+package com.robin729.todonotes.view
 
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.robin729.todonotes.utils.AppConstants
+import com.robin729.todonotes.R
 
 class SplashActivity : AppCompatActivity() {
 
