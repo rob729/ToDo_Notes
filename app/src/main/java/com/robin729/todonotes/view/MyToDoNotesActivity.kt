@@ -8,6 +8,10 @@ import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.work.Constraints
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import com.google.android.material.button.MaterialButton
 import com.robin729.todonotes.NotesApp
 import com.robin729.todonotes.utils.AppConstants
@@ -15,12 +19,14 @@ import com.robin729.todonotes.R
 import com.robin729.todonotes.adapter.NotesAdapter
 import com.robin729.todonotes.clicklistener.ItemClickListener
 import com.robin729.todonotes.db.Notes
+import com.robin729.todonotes.workmanager.MyWorker
 import kotlinx.android.synthetic.main.activity_my_to_do_notes.*
+import java.util.concurrent.TimeUnit
 
 class MyToDoNotesActivity : AppCompatActivity() {
 
     private val notesList = ArrayList<Notes>()
-    val ADD_NOTES_CODE = 100
+    private val ADD_NOTES_CODE = 100
     private val notesApp by lazy{
         applicationContext as NotesApp
     }
@@ -42,9 +48,9 @@ class MyToDoNotesActivity : AppCompatActivity() {
 
         setupAdapter()
         getDatafromDb()
+        setupWorkManager()
 
         fab.setOnClickListener {
-            //setupDialog()
             val intent = Intent(this, AddNotesActivity::class.java)
             startActivityForResult(intent, ADD_NOTES_CODE)
         }
@@ -52,27 +58,6 @@ class MyToDoNotesActivity : AppCompatActivity() {
 
     private fun getDatafromDb() {
         notesList.addAll(notesApp.getNotesDB().notesDao().getAllNotes())
-    }
-
-    private fun setupDialog(){
-        val view = LayoutInflater.from(this).inflate(R.layout.dialog_view_layout, null)
-        val titleEdt = view.findViewById<EditText>(R.id.titleEdt)
-        val descEdt = view.findViewById<EditText>(R.id.descriptionEdt)
-        val submit = view.findViewById<MaterialButton>(R.id.submitBtn)
-
-        val dialog = AlertDialog.Builder(this).setView(view).setCancelable(false).create()
-        dialog.show()
-
-        submit.setOnClickListener {
-            if(titleEdt.text.toString().isNotBlank() && descEdt.text.toString().isNotBlank()){
-                val note = Notes(title = titleEdt.text.toString(), desp = descEdt.text.toString(), imagePath = "")
-                addNotestoDb(note)
-                notesList.add(note)
-            } else {
-                Toast.makeText(this, "Text fields cannot be empty", Toast.LENGTH_SHORT).show()
-            }
-            dialog.dismiss()
-        }
     }
 
     private fun addNotestoDb(note: Notes) {
@@ -95,6 +80,17 @@ class MyToDoNotesActivity : AppCompatActivity() {
         }
         val notesAdapter = NotesAdapter(notesList, itemClickListener)
         recycler_view.adapter = notesAdapter
+    }
+
+    private fun setupWorkManager(){
+        val constraint = Constraints.Builder()
+            .build()
+        val request = PeriodicWorkRequest.Builder(MyWorker::class.java, 15, TimeUnit.MINUTES)
+            .setConstraints(constraint)
+            .build()
+        WorkManager.getInstance(this).enqueue(request)
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

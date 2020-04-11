@@ -8,6 +8,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -43,12 +44,17 @@ class AddNotesActivity : AppCompatActivity() {
         }
 
         submitBtn.setOnClickListener {
-            val intent = Intent()
-            intent.putExtra(AppConstants.TITLE, titleEdt.text.toString())
-            intent.putExtra(AppConstants.DESCRIPTION, descriptionEdt.text.toString())
-            intent.putExtra(AppConstants.IMAGE_PATH, picturePath)
-            setResult(Activity.RESULT_OK, intent)
-            finish()
+            if(titleEdt.text.toString().isNotBlank() && descriptionEdt.text.toString().isNotBlank()){
+                val intent = Intent()
+                intent.putExtra(AppConstants.TITLE, titleEdt.text.toString())
+                intent.putExtra(AppConstants.DESCRIPTION, descriptionEdt.text.toString())
+                intent.putExtra(AppConstants.IMAGE_PATH, picturePath)
+                setResult(Activity.RESULT_OK, intent)
+                finish()
+            } else {
+                Toast.makeText(this, "Text fields cannot be empty", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 
