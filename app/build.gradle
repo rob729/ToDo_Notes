@@ -60,4 +60,7 @@ dependencies {
     //for work manager
     implementation "androidx.work:work-runtime-ktx:$work_version"
 
+    //for fast-android-networking
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
+
 }
