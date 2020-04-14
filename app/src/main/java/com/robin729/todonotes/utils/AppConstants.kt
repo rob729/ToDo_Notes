@@ -8,4 +8,5 @@ object AppConstants {
     val TITLE = "title"
     val DESCRIPTION = "description"
     val IMAGE_PATH = "image_path"
+    val ON_BOARDED_SUCCESSFULLY = "on_boarded_successfully"
 }

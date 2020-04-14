@@ -1,11 +1,10 @@
-package com.robin729.todonotes.view
+package com.robin729.todonotes.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.robin729.todonotes.utils.AppConstants
 import com.robin729.todonotes.R
-import kotlinx.android.synthetic.main.row_layout.descriptionTxt
-import kotlinx.android.synthetic.main.row_layout.titleTxt
+import com.robin729.todonotes.utils.AppConstants
+import kotlinx.android.synthetic.main.row_layout.*
 
 class DetailsActivity : AppCompatActivity() {
 

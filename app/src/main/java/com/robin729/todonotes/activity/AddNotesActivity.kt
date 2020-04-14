@@ -1,4 +1,4 @@
-package com.robin729.todonotes.view
+package com.robin729.todonotes.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -15,7 +15,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
-import com.bumptech.glide.util.Util
 import com.robin729.todonotes.BuildConfig
 import com.robin729.todonotes.R
 import com.robin729.todonotes.utils.AppConstants
@@ -27,11 +26,10 @@ import kotlin.collections.ArrayList
 
 class AddNotesActivity : AppCompatActivity() {
 
-
     private val REQUEST_CODE_GALLERY = 2
-    val REQUEST_CODE_CAMERA = 1
-    val PERMISSION_CODE = 1234
-    var picturePath = ""
+    private val REQUEST_CODE_CAMERA = 1
+    private val PERMISSION_CODE = 1234
+    private var picturePath = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +42,9 @@ class AddNotesActivity : AppCompatActivity() {
         }
 
         submitBtn.setOnClickListener {
-            if(titleEdt.text.toString().isNotBlank() && descriptionEdt.text.toString().isNotBlank()){
+            if (titleEdt.text.toString().isNotBlank() && descriptionEdt.text.toString()
+                    .isNotBlank()
+            ) {
                 val intent = Intent()
                 intent.putExtra(AppConstants.TITLE, titleEdt.text.toString())
                 intent.putExtra(AppConstants.DESCRIPTION, descriptionEdt.text.toString())
@@ -111,7 +111,11 @@ class AddNotesActivity : AppCompatActivity() {
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             val photoFiles: File? = createImage()
             if (photoFiles != null) {
-                val photoURI = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID+".provider", photoFiles)
+                val photoURI = FileProvider.getUriForFile(
+                    this,
+                    BuildConfig.APPLICATION_ID + ".provider",
+                    photoFiles
+                )
                 picturePath = photoFiles.absolutePath
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                 startActivityForResult(takePictureIntent, REQUEST_CODE_CAMERA)
@@ -161,4 +165,10 @@ class AddNotesActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        setResult(Activity.RESULT_CANCELED)
+    }
+
 }

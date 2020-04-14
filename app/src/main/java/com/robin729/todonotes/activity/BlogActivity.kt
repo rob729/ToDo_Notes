@@ -1,4 +1,4 @@
-package com.robin729.todonotes
+package com.robin729.todonotes.activity
 
 import android.os.Bundle
 import android.util.Log
@@ -6,13 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
-import com.androidnetworking.interfaces.JSONArrayRequestListener
 import com.androidnetworking.interfaces.ParsedRequestListener
+import com.robin729.todonotes.R
 import com.robin729.todonotes.adapter.BlogAdapter
 import com.robin729.todonotes.model.Response
 import kotlinx.android.synthetic.main.activity_blog.*
-import kotlinx.android.synthetic.main.activity_my_to_do_notes.*
-import org.json.JSONArray
 
 
 class BlogActivity : AppCompatActivity() {
@@ -23,11 +21,11 @@ class BlogActivity : AppCompatActivity() {
         getBlogs()
     }
 
-    private fun getBlogs(){
+    private fun getBlogs() {
         AndroidNetworking.get("http://www.mocky.io/v2/5926ce9d11000096006ccb30")
             .setPriority(Priority.MEDIUM)
             .build()
-            .getAsObject(Response::class.java, object: ParsedRequestListener<Response>{
+            .getAsObject(Response::class.java, object : ParsedRequestListener<Response> {
                 override fun onResponse(response: Response?) {
                     if (response != null) {
                         setupRecyclerView(response)
@@ -41,7 +39,7 @@ class BlogActivity : AppCompatActivity() {
             })
     }
 
-    private fun setupRecyclerView(response: Response){
+    private fun setupRecyclerView(response: Response) {
         val blogAdapter = BlogAdapter(response.data)
         blogsRv.adapter = blogAdapter
     }

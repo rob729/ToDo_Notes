@@ -1,7 +1,7 @@
-package com.robin729.todonotes.view
+package com.robin729.todonotes.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.robin729.todonotes.R
 
 class MainActivity : AppCompatActivity() {
