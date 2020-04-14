@@ -66,6 +66,7 @@ class MyToDoNotesActivity : AppCompatActivity() {
                 val intent = Intent(applicationContext, DetailsActivity::class.java)
                 intent.putExtra(AppConstants.TITLE, notes.title)
                 intent.putExtra(AppConstants.DESCRIPTION, notes.desp)
+                intent.putExtra(AppConstants.IMAGE_PATH, notes.imagePath)
                 startActivity(intent)
             }
 
