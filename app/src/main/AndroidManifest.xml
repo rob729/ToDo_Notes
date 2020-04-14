@@ -19,9 +19,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="q">
-        <activity android:name=".onboarding.OnBoardingActivity"
-            android:theme="@style/NoToolbar"/>
-        <activity android:name=".activity.BlogActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -41,8 +38,14 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".activity.AddNotesActivity" />
-        <activity android:name=".activity.DetailsActivity" />
+        <activity android:name=".onboarding.OnBoardingActivity"
+            android:theme="@style/NoToolbar"/>
+        <activity android:name=".activity.BlogActivity"
+            android:parentActivityName=".activity.MyToDoNotesActivity"/>
+        <activity android:name=".activity.AddNotesActivity"
+            android:parentActivityName=".activity.MyToDoNotesActivity"/>
+        <activity android:name=".activity.DetailsActivity"
+            android:parentActivityName=".activity.MyToDoNotesActivity"/>
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

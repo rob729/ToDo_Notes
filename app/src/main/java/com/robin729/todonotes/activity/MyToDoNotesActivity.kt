@@ -40,7 +40,7 @@ class MyToDoNotesActivity : AppCompatActivity() {
         } else {
             StoreSession.readString(AppConstants.FULL_NAME)
         }
-        supportActionBar?.title = userName
+        supportActionBar?.title = "Hi $userName"
 
         setupAdapter()
         getDatafromDb()

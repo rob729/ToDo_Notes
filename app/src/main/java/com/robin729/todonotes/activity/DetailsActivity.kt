@@ -12,6 +12,9 @@ class DetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         val title = intent.getStringExtra(AppConstants.TITLE)
         val description = intent.getStringExtra(AppConstants.DESCRIPTION)
 
